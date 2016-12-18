@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161217201344) do
+ActiveRecord::Schema.define(version: 20161218010914) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "donations", force: :cascade do |t|
+    t.float    "amount",            null: false
+    t.string   "transaction_state", null: false
+    t.string   "donor_email",       null: false
+    t.string   "student_email",     null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.integer  "student_id",        null: false
+    t.integer  "donor_id",          null: false
+  end
 
   create_table "roles", force: :cascade do |t|
     t.string   "name"
@@ -54,4 +65,6 @@ ActiveRecord::Schema.define(version: 20161217201344) do
     t.index ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", using: :btree
   end
 
+  add_foreign_key "donations", "users", column: "donor_id"
+  add_foreign_key "donations", "users", column: "student_id"
 end
