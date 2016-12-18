@@ -18,6 +18,7 @@ gem 'omniauth'
 gem 'omniauth-twitter', '~> 1.2', '>= 1.2.1'
 gem 'omniauth-facebook', '~> 4.0'
 gem 'omniauth-gplus', '~> 2.0', '>= 2.0.1'
+gem 'rolify', '~> 5.1'
 gem 'warden', github: 'acaron/warden', branch: 'fix-test-helpers'
 
 group :development, :test do
