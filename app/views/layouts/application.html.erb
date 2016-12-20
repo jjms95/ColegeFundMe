@@ -1,14 +1,22 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>ColegeFundMe</title>
-    <%= csrf_meta_tags %>
+  	<head>
+    	<title>ColegeFundMe</title>
+    	<%= csrf_meta_tags %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+    	<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    	<%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  	</head>
 
-  <body>
-    <%= yield %>
-  </body>
+  	<body>
+  		<header>
+  			<%= link_to 'logout', destroy_user_session_path, method: :delete, data: { confirm: 'Are you sure?' }%> 
+  		</header>
+    		<% flash.each do |key, value| %>
+    		<div class="alert alert-<%= key %> alert-dismissable">
+        		<%= value %>
+    		</div>
+		<% end %>
+    	<%= yield %>
+  	</body>
 </html>

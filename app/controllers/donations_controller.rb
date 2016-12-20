@@ -27,6 +27,9 @@ class DonationsController < ApplicationController
   		@donation = Donation.new(donation_params)
 		respond_to do |format|
 	  		if @donation.save
+	  			user = User.find(@donation[:student_id])
+	  			user.add_role :student,@donation
+	  			current_user.add_role :donor,@donation
 				format.html { redirect_to @donation, notice: 'Donation was successfully created.' }
 				format.json { render :show, status: :created, location: @donation }
 	  		else

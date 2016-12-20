@@ -32,7 +32,7 @@ RSpec.describe DonationsController, type: :controller do
 							student_email:student[:email],
 							donor_email:donor[:email]}}
 	before do
-		sign_in student   
+		sign_in donor   
 	end
 
 	let(:invalid_attributes) {{amount:nil}}
@@ -85,6 +85,7 @@ RSpec.describe DonationsController, type: :controller do
 				post :create, params: {donation: valid_attributes}, session: valid_session
 				expect(assigns(:donation)).to be_a(Donation)
 				expect(assigns(:donation)).to be_persisted
+				#expect(donor.donor?).to be(true)
 			end
 
 			it "redirects to the created donation" do
@@ -121,7 +122,7 @@ RSpec.describe DonationsController, type: :controller do
 				original_donation = donation
 				put :update, params: {id: donation.to_param, donation: new_attributes}, session: valid_session
 				donation.reload
-				expect(assigns(:donation).attributes).should_not eq(donation.attributes)
+				expect(assigns(:donation).attributes).should_not eq(original_donation.attributes)
 			end
 
 			it "assigns the requested donation as @donation" do
