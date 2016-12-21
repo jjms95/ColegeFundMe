@@ -7,9 +7,13 @@ class Users::SessionsController < Devise::SessionsController
   # end
 
   # POST /resource/sign_in
-  # def create
-  #   super
-  # end
+	def create
+     	if !current_user.student? and !current_user.donor?
+     		redirect_to first_sign_path
+     	else
+     		redirect_to donations_path
+     	end
+   	end
 
   # DELETE /resource/sign_out
   # def destroy

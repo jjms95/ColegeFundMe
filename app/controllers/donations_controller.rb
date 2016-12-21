@@ -4,7 +4,7 @@ class DonationsController < ApplicationController
   	# GET /donations
   	# GET /donations.json
   	def index
-		@donations = Donation.all
+		@donations = current_user.maked_donations
  	end
 
   	# GET /donations/1
@@ -14,7 +14,7 @@ class DonationsController < ApplicationController
 
   	# GET /donations/new
   	def new
-		@donation = Donation.new
+		@donation = current_user.maked_donations.new
  	end
 
   	# GET /donations/1/edit
@@ -24,7 +24,7 @@ class DonationsController < ApplicationController
   	# POST /donations
   	# POST /donations.json
   	def create
-  		@donation = Donation.new(donation_params)
+  		@donation = current_user.maked_donations.build(donation_params)
 		respond_to do |format|
 	  		if @donation.save
 	  			user = User.find(@donation[:student_id])

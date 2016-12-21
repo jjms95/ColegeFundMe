@@ -12,13 +12,13 @@ Rails.application.routes.draw do
 	constraints: lambda { |request| request.env['warden'].user.parent? }
 
 	#devise
-	devise_for :users 
+	devise_for :users, controllers: { registrations: "users/registrations",sessions:"users/sessions" }
 	as :user do
 		resources :donations
+		resources :parent_children
 	end
 
 	#resourses
-	resources :parent_children
 
 	#individual routes
 	get '/assign_roles/first_sign', to: 'assign_roles#first_sign', as: 'first_sign'
