@@ -1,22 +1,32 @@
 <!DOCTYPE html>
 <html>
-  	<head>
-    	<title>ColegeFundMe</title>
-    	<%= csrf_meta_tags %>
+	<head>
+		<title>ColegeFundMe</title>
+		<%= csrf_meta_tags %>
 
-    	<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    	<%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  	</head>
+		<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+		<%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+	</head>
 
-  	<body>
-  		<header>
-  			<%= link_to 'logout', destroy_user_session_path, method: :delete, data: { confirm: 'Are you sure?' }%> 
-  		</header>
-    		<% flash.each do |key, value| %>
-    		<div class="alert alert-<%= key %> alert-dismissable">
-        		<%= value %>
-    		</div>
-		<% end %>
-    	<%= yield %>
-  	</body>
+	<body>
+		<header>
+	  		<% if current_user %>
+	  			Signed in as <strong><%= current_user.username %></strong>!
+				<%= link_to 'Logout', destroy_user_session_path, method: :delete %>
+				<% if current_user.donor? %>
+					<%= link_to 'add a child', new_parent_child_path %>
+				<% elsif current_user.student? and !current_user.child? %>
+					<%= link_to 'add a parent', new_parent_child_path %>	
+				<% end %>
+			<% else %>
+				<%= link_to 'Login', new_user_session_path %>
+			<% end %>
+		</header>
+			<% flash.each do |key, value| %>
+				<div class="alert alert-<%= key %> alert-dismissable">
+					<%= value %>
+				</div>
+			<% end %>
+		<%= yield %>
+	</body>
 </html>

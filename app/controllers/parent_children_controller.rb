@@ -4,7 +4,7 @@ class ParentChildrenController < ApplicationController
   	# GET /parent_children
   	# GET /parent_children.json
   	def index
-		@parent_children = ParentChild.all
+		@parent_children = current_user.parentchild
  	end
 
   	# GET /parent_children/1

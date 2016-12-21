@@ -42,7 +42,7 @@ RSpec.describe DonationsController, type: :controller do
 	# DonationsController. Be sure to keep this updated too.
 	let(:valid_session) { {} }
 
-	describe "GET #index" do
+	describe "GET #index_donor" do
 		it "assigns all donations as @donations" do
 			donation = Donation.create! valid_attributes
 			get :index, params: {}, session: valid_session

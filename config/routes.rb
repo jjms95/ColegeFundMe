@@ -1,15 +1,9 @@
 Rails.application.routes.draw do
   
-	#roots
+	#root
 	
-	root to: 'donations#index', 
+	root to: 'static_pages#home', 
 	constraints: lambda { |request| !request.env['warden'].user}
-
-	root to: 'donations#index',
-	constraints: lambda { |request| request.env['warden'].user.student? }
-
-	root to: 'donations#index', as: 'customer_root',
-	constraints: lambda { |request| request.env['warden'].user.parent? }
 
 	#devise
 	devise_for :users, controllers: { registrations: "users/registrations",sessions:"users/sessions" }
@@ -23,4 +17,5 @@ Rails.application.routes.draw do
 	#individual routes
 	get '/assign_roles/first_sign', to: 'assign_roles#first_sign', as: 'first_sign'
 	get '/assign_roles/save_role', to: 'assign_roles#save_role', as: 'save_role'
+	get '/static_pages/home', to: 'static_pages#home', as: 'home'
 end
