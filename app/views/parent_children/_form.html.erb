@@ -1,17 +1,27 @@
 <%= form_for(parent_child) do |f| %>
-  <% if parent_child.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(parent_child.errors.count, "error") %> prohibited this parent_child from being saved:</h2>
+	<% if parent_child.errors.any? %>
+		<div id="error_explanation">
+			<h2><%= pluralize(parent_child.errors.count, "error") %> prohibited this parent_child from being saved:</h2>
 
-      <ul>
-      <% parent_child.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+			<ul>
+				<% parent_child.errors.full_messages.each do |message| %>
+					<li><%= message %></li>
+				<% end %>
+			</ul>
+		</div>
+	<% end %>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+	<div class="field">
+		<%= f.label :child_id %>
+		<%= f.text_field :child_id %>
+	</div>
+	
+	<div class="field">
+		<%= f.label :parent_id %>
+		<%= f.text_field :parent_id %>
+	</div>
+
+	<div class="actions">
+		<%= f.submit %>
+	</div>
 <% end %>

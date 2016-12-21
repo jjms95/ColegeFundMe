@@ -1,10 +1,9 @@
 Rails.application.routes.draw do
-  resources :parent_children
-  	#roots
-  	root to: 'donations#index'
-  	
+  
+	#roots
+	
 	root to: 'donations#index', 
-	constraints: lambda { |request| !request.env['warden'].user.normal?}
+	constraints: lambda { |request| !request.env['warden'].user}
 
 	root to: 'donations#index',
 	constraints: lambda { |request| request.env['warden'].user.student? }
@@ -13,9 +12,15 @@ Rails.application.routes.draw do
 	constraints: lambda { |request| request.env['warden'].user.parent? }
 
 	#devise
-  	devise_for :users 
-  	as :user do
-  		resources :donations
-  	end
-  	# For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+	devise_for :users 
+	as :user do
+		resources :donations
+	end
+
+	#resourses
+	resources :parent_children
+
+	#individual routes
+	get '/assign_roles/first_sign', to: 'assign_roles#first_sign', as: 'first_sign'
+	get '/assign_roles/save_role', to: 'assign_roles#save_role', as: 'save_role'
 end

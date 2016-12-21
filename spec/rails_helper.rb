@@ -21,12 +21,12 @@ RSpec.configure do |config|
     config.infer_base_class_for_anonymous_controllers = false
     config.expect_with(:rspec) { |c| c.syntax = :should }   
 
-    config.include ControllerHelpers, :type => :controller
+    config.include Warden::Test::Helpers
     config.include FactoryGirl::Syntax::Methods    
     config.extend ControllerMacros, :type => :controller
+    config.extend ControllerMacros, :type => :view
     config.include Devise::Test::ControllerHelpers, type: :controller
     config.include Devise::Test::ControllerHelpers, type: :view
-    config.include Warden::Test::Helpers
     config.include(Shoulda::Matchers::ActiveRecord, type: :model)
     config.expect_with :rspec do |c|
         c.syntax = [:should, :expect]

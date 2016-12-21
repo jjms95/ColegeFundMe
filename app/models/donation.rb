@@ -1,4 +1,5 @@
 class Donation < ApplicationRecord
+	resourcify
 	belongs_to :donor, :class_name => 'User'
   	belongs_to :student, :class_name => 'User'
   	validates :amount, presence: true
