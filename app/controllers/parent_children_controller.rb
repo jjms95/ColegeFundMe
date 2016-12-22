@@ -4,7 +4,7 @@ class ParentChildrenController < ApplicationController
   	# GET /parent_children
   	# GET /parent_children.json
   	def index
-		@parent_children = current_user.parentchild
+		@parent_children = current_user.parent_parent_child
  	end
 
   	# GET /parent_children/1
@@ -14,7 +14,7 @@ class ParentChildrenController < ApplicationController
 
   	# GET /parent_children/new
   	def new
-		@parent_child = ParentChild.new
+		@parent_child = current_user.parent_parent_child.new
  	end
 
   	# GET /parent_children/1/edit
@@ -24,7 +24,7 @@ class ParentChildrenController < ApplicationController
   	# POST /parent_children
   	# POST /parent_children.json
   	def create
-		@parent_child = ParentChild.new(parent_child_params)
+		@parent_child = current_user.parent_parent_child.new(parent_child_params)
 
 		respond_to do |format|
 	  		if @parent_child.save

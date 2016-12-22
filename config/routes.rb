@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
   
 	#root
-	
+	authenticated :user do
+    	root :to => "main#dashboard"
+    	# Rails 4 users must specify the 'as' option to give it a unique name
+    	# root :to => "main#dashboard", :as => "authenticated_root"
+  end
 	root to: 'static_pages#home', 
 	constraints: lambda { |request| !request.env['warden'].user}
 
