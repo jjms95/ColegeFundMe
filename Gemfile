@@ -17,9 +17,10 @@ gem 'faker', '~> 1.6', '>= 1.6.6'
 gem 'omniauth'
 gem 'omniauth-twitter', '~> 1.2', '>= 1.2.1'
 gem 'omniauth-facebook', '~> 4.0'
-gem 'omniauth-gplus', '~> 2.0', '>= 2.0.1'
+gem "omniauth-gplus"
 gem 'rolify', '~> 5.1'
 gem 'warden', github: 'acaron/warden', branch: 'fix-test-helpers'
+gem 'dotenv-rails'
 
 group :development, :test do
 	gem 'rspec-rails', '~> 3.5', '>= 3.5.2'

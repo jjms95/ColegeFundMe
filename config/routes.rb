@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   
 	#root
-	authenticated :user do
+	authenticated :user_donor do
     	root :to => "main#dashboard"
     	# Rails 4 users must specify the 'as' option to give it a unique name
     	# root :to => "main#dashboard", :as => "authenticated_root"
