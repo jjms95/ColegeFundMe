@@ -16,20 +16,13 @@ RSpec.describe "donations/edit", type: :view do
 	end
 
 		it "renders the edit donation form" do
-		render
+			render
 
-		assert_select "form[action=?][method=?]", donation_path(@donation), "post" do
+			assert_select "form[action=?][method=?]", donation_path(@donation), "post" do
 			assert_select "input#donation_amount[name=?]", "donation[amount]"
-
 			assert_select "input#donation_transaction_state[name=?]", "donation[transaction_state]"
-
 			assert_select "input#donation_donor_email[name=?]", "donation[donor_email]"
-
 			assert_select "input#donation_student_email[name=?]", "donation[student_email]"
-
-			assert_select "input#donation_donor_id[name=?]", "donation[donor_id]"
-
-			assert_select "input#donation_student_id[name=?]", "donation[student_id]"
 		end
 	end
 end

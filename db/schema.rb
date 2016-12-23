@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161219190435) do
+ActiveRecord::Schema.define(version: 20161222002743) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,15 @@ ActiveRecord::Schema.define(version: 20161219190435) do
     t.datetime "updated_at",        null: false
     t.integer  "student_id",        null: false
     t.integer  "donor_id",          null: false
+  end
+
+  create_table "identities", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "provider"
+    t.string   "uid"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_identities_on_user_id", using: :btree
   end
 
   create_table "parent_children", force: :cascade do |t|
@@ -74,6 +83,7 @@ ActiveRecord::Schema.define(version: 20161219190435) do
 
   add_foreign_key "donations", "users", column: "donor_id"
   add_foreign_key "donations", "users", column: "student_id"
+  add_foreign_key "identities", "users"
   add_foreign_key "parent_children", "users", column: "child_id"
   add_foreign_key "parent_children", "users", column: "parent_id"
 end

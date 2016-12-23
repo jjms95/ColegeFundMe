@@ -15,8 +15,12 @@
 				<%= link_to 'Logout', destroy_user_session_path, method: :delete %>
 				<% if current_user.donor? %>
 					<%= link_to 'add a child', new_parent_child_path %>
+					<%= link_to 'home', donations_path %>
 				<% elsif current_user.student? and !current_user.child? %>
 					<%= link_to 'add a parent', new_parent_child_path %>	
+					<%= link_to 'home', donations_path %>
+				<% elsif current_user.child? or current_user.parent? %>
+					<%= link_to 'home', parent_children_path %>
 				<% end %>
 			<% else %>
 				<%= link_to 'Login', new_user_session_path %>

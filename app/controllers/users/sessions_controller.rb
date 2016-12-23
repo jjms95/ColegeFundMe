@@ -17,9 +17,7 @@ class Users::SessionsController < Devise::SessionsController
 				redirect_to first_sign_path
 			elsif current_user.parent?
 				redirect_to parent_children_path
-			elsif current_user.student?
-				redirect_to donations_path
-			elsif current_user.donor?
+			elsif current_user.student? or current_user.donor?
 				redirect_to donations_path
 			end
 		end

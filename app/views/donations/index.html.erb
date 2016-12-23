@@ -21,8 +21,8 @@
 				<td><%= donation.donor_email %></td>
 				<td><%= donation.student_email %></td>
 				<td><%= link_to 'Show', donation %></td>
-				<td><%= link_to 'Edit', edit_donation_path(donation) %></td>
-				<td><%= link_to 'Destroy', donation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+				<td><% link_to 'Edit', edit_donation_path(donation) %></td>
+				<td><% link_to 'Destroy', donation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
 	  		</tr>
 		<% end %>
   	</tbody>
@@ -30,4 +30,8 @@
 
 <br>
 
-<%= link_to 'New Donation', new_donation_path %>
+<% if current_user.student? %>
+
+<% else %>
+	<%= link_to 'New Donation', new_donation_path %>
+<% end %>

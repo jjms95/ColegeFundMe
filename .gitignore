@@ -6,7 +6,7 @@
 
 # Ignore bundler config.
 /.bundle
-
+/config/initializers/devise.rb
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*
