@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  resources :key_donor_children
 	#root
 	authenticated :user_donor do
     	root :to => "main#dashboard"

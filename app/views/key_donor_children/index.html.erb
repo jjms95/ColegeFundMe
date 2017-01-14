@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Key Donor Children</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @key_donor_children.each do |key_donor_child| %>
+      <tr>
+        <td><%= link_to 'Show', key_donor_child %></td>
+        <td><%= link_to 'Edit', edit_key_donor_child_path(key_donor_child) %></td>
+        <td><%= link_to 'Destroy', key_donor_child, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Key Donor Child', new_key_donor_child_path %>

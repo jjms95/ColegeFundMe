@@ -5,7 +5,9 @@ class DonationsController < ApplicationController
   	# GET /donations.json
   	def index
 		@donations = current_user.maked_donations
-		@students = current_user.childs
+		if current_user.donor?
+			@students =  Role.find_by_name('student').users
+		end
  	end
 
   	# GET /donations/1

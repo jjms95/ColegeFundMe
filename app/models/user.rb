@@ -5,17 +5,29 @@ class User < ApplicationRecord
 	devise :database_authenticatable, :registerable,
 			:recoverable, :rememberable, :trackable, :validatable, :omniauthable
 	after_create :assign_default_role
-	#donor side of the relationship
-	has_many :maked_donations, :class_name => 'Donation', :foreign_key => 'donor_id'
-		#student side of the ralationship
-		has_many :recieved_donations, :class_name => 'Donation', :foreign_key => 'student_id'
-		#child side of the relationship
-		has_one :child_parent_child, :class_name => 'ParentChild', :foreign_key => 'child_id'
-		has_one :parent, :class_name => 'User', :foreign_key => 'id',through: :child_parent_child
-		#parent side of the relationship
-		has_many :parent_parent_child, :class_name => 'ParentChild', :foreign_key => 'parent_id'
-		has_many :childs, :class_name => 'User', :foreign_key => 'id',through: :parent_parent_child
 	
+	#donations relationships
+	##donor side of the relationships
+	has_many :maked_donations, :class_name => 'Donation', :foreign_key => 'donor_id'
+	##student side of the ralatioships
+	has_many :received_donations, :class_name => 'Donation', :foreign_key => 'student_id'
+	
+	#parent_child relationships	
+	##child side of the relationship
+	has_one :child_parent_child,:class_name => 'ParentChild', :foreign_key => 'child_id'
+	has_one :parent_of_child, :class_name => 'User', :foreign_key => 'id',through: :child_parent_child
+	##parent side of the relationship
+	has_many :parent_parent_children,:class_name => 'ParentChild', :foreign_key => 'parent_id'
+	has_many :childs_of_parent, :class_name => 'User', :foreign_key => 'id',through: :parent_parent_children
+	
+	#key_donor_child relationships
+	##child side of the relationship
+	has_many :child_key_donor_children,:class_name => 'KeyDonorChild', :foreign_key => 'child_id'
+	has_many :key_donors_of_child, :class_name => 'User', :foreign_key => 'id',through: :child_key_donor_children
+	##parent side of the relationship
+	has_many :donor_key_donor_children,:class_name => 'KeyDonorChild', :foreign_key => 'key_donor_id'
+	has_many :childs_of_key_donor, :class_name => 'User', :foreign_key => 'id',through: :donor_key_donor_children
+
 	#methods
 	def assign_default_role
 		self.add_role(:normal) if self.roles.blank?
@@ -40,6 +52,14 @@ class User < ApplicationRecord
 	end	
 	def normal?
 		self.has_role? :normal
+	end
+	def home_page_user
+		if self.child? or self.parent?
+			'/parent_children'
+		elsif self.student? or self.donor?
+			'/donations'
+		elsif self.admin?
+		end 
 	end
 
 	#multiple account

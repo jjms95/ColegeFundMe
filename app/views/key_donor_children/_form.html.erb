@@ -1,0 +1,17 @@
+<%= form_for(key_donor_child) do |f| %>
+  <% if key_donor_child.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(key_donor_child.errors.count, "error") %> prohibited this key_donor_child from being saved:</h2>
+
+      <ul>
+      <% key_donor_child.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -20,140 +20,141 @@ require 'rails_helper'
 
 RSpec.describe ParentChildrenController, type: :controller do
 
-	  # This should return the minimal set of attributes required to create a valid
-	  # ParentChild. As you add validations to ParentChild, be sure to
-	  # adjust the attributes here as well.
+		# This should return the minimal set of attributes required to create a valid
+		# ParentChild. As you add validations to ParentChild, be sure to
+		# adjust the attributes here as well.
 	let(:child){ FactoryGirl.create(:user)}
 	let(:other_child){ FactoryGirl.create(:user)} 
- 	let(:parent){ FactoryGirl.create(:user)}
+	let(:parent){ FactoryGirl.create(:user)}
 	let(:valid_attributes){{child_id:child[:id],parent_id:parent[:id]}}
 	let(:invalid_attributes) {{child_id:nil}}
 	before do
 		sign_in parent   
 	end
 
-	  # This should return the minimal set of values that should be in the session
-	  # in order to pass any filters (e.g. authentication) defined in
-	  # ParentChildrenController. Be sure to keep this updated too.
-	  let(:valid_session) { {} }
+		# This should return the minimal set of values that should be in the session
+		# in order to pass any filters (e.g. authentication) defined in
+		# ParentChildrenController. Be sure to keep this updated too.
+		let(:valid_session) { {} }
 
-	  describe "GET #index" do
-		it "assigns all parent_children as @parent_children" do
-		  parent_child = ParentChild.create! valid_attributes
-		  get :index, params: {}, session: valid_session
-		  expect(assigns(:parent_children)).to eq([parent_child])
+	describe "GET #index" do
+		it "assigns all childs of the parent as @parent_children" do
+			parent_child = parent.parent_parent_children.create! valid_attributes
+			parent.add_role(:parent)
+			get :index, params: {}, session: valid_session
+			expect(assigns(:parent_children)).to eq([parent_child])
 		end
-	  end
+	end
 
-	  describe "GET #show" do
+	describe "GET #show" do
 		it "assigns the requested parent_child as @parent_child" do
-		  parent_child = ParentChild.create! valid_attributes
-		  get :show, params: {id: parent_child.to_param}, session: valid_session
-		  expect(assigns(:parent_child)).to eq(parent_child)
+			parent_child = ParentChild.create! valid_attributes
+			get :show, params: {id: parent_child.to_param}, session: valid_session
+			expect(assigns(:parent_child)).to eq(parent_child)
 		end
-	  end
+	end
 
-	  describe "GET #new" do
+	describe "GET #new" do
 		it "assigns a new parent_child as @parent_child" do
-		  get :new, params: {}, session: valid_session
-		  expect(assigns(:parent_child)).to be_a_new(ParentChild)
+			get :new, params: {}, session: valid_session
+			expect(assigns(:parent_child)).to be_a_new(ParentChild)
 		end
-	  end
+	end
 
-	  describe "GET #edit" do
+	describe "GET #edit" do
 		it "assigns the requested parent_child as @parent_child" do
-		  parent_child = ParentChild.create! valid_attributes
-		  get :edit, params: {id: parent_child.to_param}, session: valid_session
-		  expect(assigns(:parent_child)).to eq(parent_child)
+			parent_child = ParentChild.create! valid_attributes
+			get :edit, params: {id: parent_child.to_param}, session: valid_session
+			expect(assigns(:parent_child)).to eq(parent_child)
 		end
-	  end
+	end
 
-	  describe "POST #create" do
+		describe "POST #create" do
 		context "with valid params" do
-		  it "creates a new ParentChild" do
+			it "creates a new ParentChild" do
 			expect {
-			  post :create, params: {parent_child: valid_attributes}, session: valid_session
+				post :create, params: {parent_child: valid_attributes}, session: valid_session
 			}.to change(ParentChild, :count).by(1)
-		  end
+			end
 
-		  it "assigns a newly created parent_child as @parent_child" do
+			it "assigns a newly created parent_child as @parent_child" do
 			post :create, params: {parent_child: valid_attributes}, session: valid_session
 			expect(assigns(:parent_child)).to be_a(ParentChild)
 			expect(assigns(:parent_child)).to be_persisted
-		  end
+			end
 
-		  it "redirects to the created parent_child" do
+			it "redirects to the created parent_child" do
 			post :create, params: {parent_child: valid_attributes}, session: valid_session
 			expect(response).to redirect_to(ParentChild.last)
-		  end
+			end
 		end
 
 		context "with invalid params" do
-		  it "assigns a newly created but unsaved parent_child as @parent_child" do
+			it "assigns a newly created but unsaved parent_child as @parent_child" do
 			post :create, params: {parent_child: invalid_attributes}, session: valid_session
 			expect(assigns(:parent_child)).to be_a_new(ParentChild)
-		  end
+			end
 
-		  it "re-renders the 'new' template" do
+			it "re-renders the 'new' template" do
 			post :create, params: {parent_child: invalid_attributes}, session: valid_session
 			expect(response).to render_template("new")
-		  end
+			end
 		end
-	  end
+		end
 
-	  describe "PUT #update" do
+		describe "PUT #update" do
 		context "with valid params" do
-		  let(:new_attributes) {{child_id:other_child[:id],parent_id:parent[:id]}}
+			let(:new_attributes) {{child_id:other_child[:id],parent_id:parent[:id]}}
 
-		  it "updates the requested parent_child" do
+			it "updates the requested parent_child" do
 			parent_child = ParentChild.create! valid_attributes
 			original_parent_child = parent_child
 			put :update, params: {id: parent_child.to_param, parent_child: new_attributes}, session: valid_session
 			parent_child.reload
 			expect(assigns(:parent_child).attributes).should_not eq(original_parent_child.attributes)
-		  end
+			end
 
-		  it "assigns the requested parent_child as @parent_child" do
+			it "assigns the requested parent_child as @parent_child" do
 			parent_child = ParentChild.create! valid_attributes
 			put :update, params: {id: parent_child.to_param, parent_child: valid_attributes}, session: valid_session
 			expect(assigns(:parent_child)).to eq(parent_child)
-		  end
+			end
 
-		  it "redirects to the parent_child" do
+			it "redirects to the parent_child" do
 			parent_child = ParentChild.create! valid_attributes
 			put :update, params: {id: parent_child.to_param, parent_child: valid_attributes}, session: valid_session
 			expect(response).to redirect_to(parent_child)
-		  end
+			end
 		end
 
 		context "with invalid params" do
-		  it "assigns the parent_child as @parent_child" do
+			it "assigns the parent_child as @parent_child" do
 			parent_child = ParentChild.create! valid_attributes
 			put :update, params: {id: parent_child.to_param, parent_child: invalid_attributes}, session: valid_session
 			expect(assigns(:parent_child)).to eq(parent_child)
-		  end
+			end
 
-		  it "re-renders the 'edit' template" do
+			it "re-renders the 'edit' template" do
 			parent_child = ParentChild.create! valid_attributes
 			put :update, params: {id: parent_child.to_param, parent_child: invalid_attributes}, session: valid_session
 			expect(response).to render_template("edit")
-		  end
+			end
 		end
-	  end
+		end
 
-	  describe "DELETE #destroy" do
+		describe "DELETE #destroy" do
 		it "destroys the requested parent_child" do
-		  parent_child = ParentChild.create! valid_attributes
-		  expect {
+			parent_child = ParentChild.create! valid_attributes
+			expect {
 			delete :destroy, params: {id: parent_child.to_param}, session: valid_session
-		  }.to change(ParentChild, :count).by(-1)
+			}.to change(ParentChild, :count).by(-1)
 		end
 
 		it "redirects to the parent_children list" do
-		  parent_child = ParentChild.create! valid_attributes
-		  delete :destroy, params: {id: parent_child.to_param}, session: valid_session
-		  expect(response).to redirect_to(parent_children_url)
+			parent_child = ParentChild.create! valid_attributes
+			delete :destroy, params: {id: parent_child.to_param}, session: valid_session
+			expect(response).to redirect_to(parent_children_url)
 		end
-	  end
+		end
 
 end
