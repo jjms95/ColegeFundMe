@@ -3,7 +3,7 @@ class UsersController < ApplicationController
 
 	# GET /users/:id.:format
 	def show
-		# authorize! :read, @user
+		# authorize! :read, @user		
 	end
 
 	# GET /users/:id/edit

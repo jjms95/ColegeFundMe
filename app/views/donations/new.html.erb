@@ -1,5 +1,23 @@
 <h1>New Donation</h1>
 
-<%= render 'form', donation: @donation %>
+<table>
+	<thead>
+		<tr>
+			<th colspan="3"></th>
+		</tr>
+	</thead>
 
-<%= link_to 'Back', donations_path %>
+	<tbody>
+		<td><%= "first_name" %></td>
+		<td><%= "last_name" %></td>
+		<td><%= "email" %></td>
+		<% @users.each do |user| %>
+			<tr>
+				<td><%= user.first_name %></td>
+				<td><%= user.last_name %></td>
+				<td><%= user.email %></td>
+				<td><%= link_to 'Show', user %></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>

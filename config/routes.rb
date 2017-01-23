@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   
+  get 'search/create'
+
   resources :key_donor_children
 	#root
 	authenticated :user_donor do
@@ -13,11 +15,12 @@ Rails.application.routes.draw do
 	#devise
 	devise_for :users, controllers: { registrations: "users/registrations",sessions:"users/sessions" ,omniauth_callbacks: 'users/omniauth_callbacks'}
 	as :user do
-		resources :donations
-		resources :parent_children
+		resources :donations,only:[:new,:index,:show,:destroy,:update,:create]
+		resources :parent_children, only:[:new,:index,:show,:destroy,:update,:create]
 	end
 
 	#resourses
+	resources :users
 
 	#individual routes
 	get '/assign_roles/first_sign', to: 'assign_roles#first_sign', as: 'first_sign'

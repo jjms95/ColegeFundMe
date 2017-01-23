@@ -1,5 +1,11 @@
-<h1>New Parent Child</h1>
+<p id="notice"><%= notice %></p>
+
+<h1>Add a new
+	<% if current_user.donor? %>
+		<%= "child" %>
+	<% else %>
+		<%= "parent" %>
+	<% end %>
+</h1>
 
 <%= render 'form', parent_child: @parent_child %>
-
-<%= link_to 'Back', parent_children_path %>

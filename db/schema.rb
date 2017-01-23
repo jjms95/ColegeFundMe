@@ -36,18 +36,26 @@ ActiveRecord::Schema.define(version: 20161226195554) do
   end
 
   create_table "key_donor_children", force: :cascade do |t|
-    t.integer  "key_donor_id", null: false
-    t.integer  "child_id",     null: false
-    t.string   "relationship"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.integer  "key_donor_id",              null: false
+    t.integer  "child_id",                  null: false
+    t.string   "donor_name"
+    t.string   "donor_email"
+    t.string   "student_name"
+    t.string   "student_email"
+    t.string   "relationship_with_student"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   create_table "parent_children", force: :cascade do |t|
-    t.integer  "parent_id",  null: false
-    t.integer  "child_id",   null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "parent_id",    null: false
+    t.integer  "child_id",     null: false
+    t.string   "parent_name"
+    t.string   "parent_email"
+    t.string   "child_name"
+    t.string   "child_email"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "roles", force: :cascade do |t|

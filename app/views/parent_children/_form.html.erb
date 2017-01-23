@@ -10,12 +10,28 @@
 			</ul>
 		</div>
 	<% end %>
-
+	
+	<div class="field">
+		<%= f.label :child_email %>
+		<%= f.text_field :child_email %>
+	</div>
+	<div class="field">
+		<%= f.label :child_name %>
+		<%= f.text_field :child_name %>
+	</div>
 	<div class="field">
 		<%= f.label :child_id %>
 		<%= f.text_field :child_id %>
 	</div>
-	
+
+	<div class="field">
+		<%= f.label :parent_email %>
+		<%= f.text_field :parent_email %>
+	</div>
+	<div class="field">
+		<%= f.label :parent_name %>
+		<%= f.text_field :child_name %>
+	</div>
 	<div class="field">
 		<%= f.label :parent_id %>
 		<%= f.text_field :parent_id %>

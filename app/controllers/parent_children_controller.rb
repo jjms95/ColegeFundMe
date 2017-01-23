@@ -3,10 +3,12 @@ class ParentChildrenController < ApplicationController
   	before_action :authenticate_user!
   	# GET /parent_children
   	# GET /parent_children.json
-  	def index
-  		@parent_children = current_user.parent_parent_children.all
-  		childs=current_user.childs_of_parent.all
-		puts childs.inspect				
+  	def index  		
+  		if current_user.donor?
+  			@parent_child=current_user.parent_parent_children.all
+  		else
+  			@parent_child=current_user.child_parent_child
+  		end
  	end
 
   	# GET /parent_children/1
@@ -16,7 +18,11 @@ class ParentChildrenController < ApplicationController
 
   	# GET /parent_children/new
   	def new
-		@parent_child = current_user.parent_parent_child.new
+  		if current_user.donor?
+  			@parent_child=current_user.parent_parent_children.new
+  		else
+  			@parent_child=current_user.build_child_parent_child
+  		end
  	end
 
   	# GET /parent_children/1/edit
@@ -26,7 +32,11 @@ class ParentChildrenController < ApplicationController
   	# POST /parent_children
   	# POST /parent_children.json
   	def create
-		@parent_child = current_user.parent_parent_child.new(parent_child_params)
+  		if current_user.donor?
+			@parent_child = current_user.parent_parent_children.new(parent_child_params)
+		else
+			@parent_child=current_user.build_child_parent_child(parent_child_params)
+		end
 
 		respond_to do |format|
 	  		if @parent_child.save
@@ -83,6 +93,6 @@ class ParentChildrenController < ApplicationController
 
 	# Never trust parameters from the scary internet, only allow the white list through.
 	def parent_child_params
-	  	params.require(:parent_child).permit(:child_id,:parent_id)
+	  	params.require(:parent_child).permit(:child_id,:parent_id,:parent_email,:child_email,:parent_name,:child_name)
 	end
 end

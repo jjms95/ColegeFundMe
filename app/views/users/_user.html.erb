@@ -1,0 +1,11 @@
+<div>
+	<table>
+		<td><%= user.username %></td>
+		<td><%= user.email %></td>
+		<% if current_user.donor? %>		
+			<td><%= link_to "Make my child",new_parent_child_path %></td>
+		<% else %>		
+			<td><%= link_to "Make my parent",new_parent_child_path %></td>
+		<% end %>
+	</table>
+</div>
